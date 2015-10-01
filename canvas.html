@@ -1,0 +1,100 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+	#container{
+	/*visibility:hidden;
+	overflow:hidden;
+	display:none;*/
+	}	
+</style>
+</head>
+
+	<body>
+    <div id="container">
+    <img src="globe_blue_lines.jpg" id="globus" ></img>
+    </div>
+    <canvas id="c" width="1200" height="1200";>
+		<script>
+ 			function initialise(){
+				
+				function drawCanvas(){
+					var globe= new Image();
+					globe.src="globe_blue_lines.jpg";
+					
+					var colours = ["blue","yellow","red","green"];
+					var c = document.getElementById("c");
+					var ctx = c.getContext("2d");
+					ctx.drawImage(window.document.getElementById("globus"),425,75);
+					//ctx.fillStyle = "red";
+					//ctx.fillRect(0,0,300,300);
+					//ctx.fillStyle = "green";
+					//ctx.fillRect(450,0,300,300);
+					//ctx.fillStyle = "yellow";
+					//ctx.fillRect(0,450,300,300);
+					//ctx.fillStyle = "blue";
+					//ctx.fillRect(450,450,300,300);
+					//ctx.translate(375,375);
+					//draws circle spaces inside the cubes
+					//for(var m = 0; m<4; m++){
+						//ctx.rotate(90*Math.PI/180);
+						//for(var z = 0; z<2; z++){
+								//for (var æ = 0; æ<2; æ++){
+									//ctx.beginPath();
+									//ctx.fillStyle = "white";
+									//ctx.arc(155+(z*100),160+(æ*100),25,0,2*Math.PI);
+									//ctx.fill();
+									//ctx.stroke();
+								//}
+						//}
+					//}
+					
+					//makes the squares and some other stuff
+					//for(var u = 0; u<4; u++){
+//						ctx.rotate(90*Math.PI/180);
+//						ctx.fillStyle = colours[u];
+//						ctx.fillRect(25,-325,50,50);
+//						for(var å = 0; å<6; å++){
+//							ctx.fillRect(-25,-325+(å*50),50,50);
+//						}
+//						for(var ø = 0; ø<3; ø++){
+//							for(var o = 0; o<7; o++){
+//								ctx.strokeRect(25-(ø*50),-375+(o*50),50,50);
+//							}
+//						}
+//						
+//					}
+				//	ctx.translate(-375,-375)
+//					function drawStar(x,y){
+//						
+//						ctx.translate(x,y);
+//						for(var b = 0; b<6; b++){
+//							ctx.beginPath();
+//							ctx.lineTo(-10,0);
+//							ctx.lineTo(0,20);
+//							ctx.lineTo(0,10);
+//							ctx.rotate(Math.PI*60/180);
+//							ctx.closePath();
+//							ctx.stroke();
+//						}
+//						ctx.translate(x*-1,y*-1);
+//					}
+//					
+//					var Star = [{x:325,y:325},{x:425,y:325},{x:325,y:425},{x:425,y:425},{x:725,y:375},{x:25,y:375},{x:375,y:725},{x:375,y:25}];
+//					for(var UI = 0; UI<Star.length; UI++){
+//					drawStar(Star[UI].x,Star[UI].y);
+//					}
+					
+					//ctx.beginPath();
+					//ctx.fillStyle = "white";
+					//ctx.arc(425,75,25,0,2*Math.PI)
+					//ctx.fill();
+					//ctx.Stroke();
+					
+				}
+				drawCanvas();
+			} 
+			initialise();
+			
+		</script>
+	</body>
+</html>

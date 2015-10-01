@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ludo</title>
+<style>
+	#container{
+		display:none;
+		overflow:hidden;
+	}	
+</style>
+<script>
+	window.addEventListener("DOMContentLoaded", function(){
+		var ctx = document.getElementById("c").getContext("2d");
+		var titles_array = [];
+		var players = [];
+		var blue_homes = [];
+		var activeRoute = [];
+		activeRoute[0] = blue_route = [3,6,9,12,15,18,45,51,57,63,69,75,77,79,73,67,61,55,49,24,27,30,33,36,39,42,43,44,41,38,35,32,29,26,50,56,62,68,74,80,78,76,70,64,58,52,46,20,17,14,11,8,5,2,1,4,7,10,13,16,19,22];
+		var yellow_homes = [];
+		activeRoute[1] = yellow_route = [73,67,61,55,49,24,27,30,33,36,39,42,43,44,41,38,35,32,29,26,50,56,62,68,74,80,78,76,70,64,58,52,46,20,17,14,11,8,5,2,1,0,3,6,9,12,15,18,45,51,57,63,69,75,77,71,65,59,53,47,21,22];
+		var red_homes = [];
+		activeRoute[2] = red_route = [41,38,35,32,29,26,50,56,62,68,74,80,78,76,70,64,58,52,46,20,17,14,11,8,5,2,1,0,3,6,9,12,15,18,45,51,57,63,69,75,77,79,73,67,61,55,49,24,27,30,33,36,39,42,43,40,37,34,31,28,25,22];
+		var green_homes = [];
+		activeRoute[3] = green_route = [70,64,58,52,46,20,17,14,11,8,5,2,1,0,3,6,9,12,15,18,45,51,57,63,69,75,77,79,73,67,61,55,49,24,27,30,33,36,39,42,43,44,41,38,35,32,29,26,50,56,62,68,74,80,78,72,66,60,54,48,23,22];
+		var colours = ["green","blue","yellow","red"];	
+		
+		console.log(activeRoute);
+		
+		function makePlayers(){
+			
+			for (var i = 0; i<4; i++){
+				for(var ø = 0; ø<4; ø++){
+					players.push({colour:colours[i],sprite: "",position:"home",pieces:4,points:0,home_amount:4});	
+				}	
+			}
+		}
+		function makeHomes(){
+			for(var i = 0; i<2; i++){
+				for(var u = 0; u<2; u++){
+				blue_homes.push(new titles(510+(i*100),515+(u*100),"blue"));
+				}
+			}
+			
+		}
+		makeHomes();
+		function titles(X,Y,Sprite,amount,colour,star,globus){
+			this.x = X;
+			this.y = Y;
+			this.sprite = Sprite;
+			this.amount = amount;
+			this.colour = colour;
+			this.star = star;
+			this.globus = globus;
+		}
+		
+		for(var T = 0; T<15; T++){
+			for(var W = 0; W<3; W++){
+				titles_array.push(new titles(700-(T*50),400-(W*50),"",0,"",false,false) 
+				);
+			}
+		}
+		
+		
+		
+		
+		for(var YY = 0; YY<6; YY++){
+			for(var P = 0; P <3; P++){
+				titles_array.push(new titles(400-(P*50),450+(YY*50),"",0,""));
+				titles_array.push(new titles(400-(P*50),250-(YY*50),"",0,""));
+				
+				
+			}
+		}
+		
+		function colourTitle(){
+			if(titles_array[3].x == 650 && titles_array[3].y == 400){				
+				titles_array[3].colour == "blue";
+			}
+		}
+		colourTitle();
+		makePlayers();
+			
+		function drawHomes(){
+			var colours = ["green","blue","yellow","red"];
+				//var positions = [{x:0,y:0},{x:450,y:0},{x:0,y:450},{x:450,y:450}];
+			ctx.translate(375,375);
+				for(var i = 0;i<4;i++){
+					ctx.rotate(90*Math.PI/180);
+					ctx.fillStyle = colours[i];
+					ctx.fillRect(-375,-375,300,300);
+					//ctx.strokeRect(-375,-26,375,1);
+					//ctx.strokeRect(-375,+25,375,1);
+					//ctx.strokeRect(-75,275,1,100);
+					//ctx.strokeRect(375,-25,1,100);
+					//draws the circles
+					for(var m = 0; m<4; m++){
+						ctx.rotate(90*Math.PI/180);
+						for(var z = 0; z<2; z++){
+							for (var æ = 0; æ<2; æ++){
+								ctx.beginPath();
+								ctx.fillStyle = "white";
+								ctx.arc(155+(z*100),160+(æ*100),25,0,2*Math.PI);
+								ctx.fill();
+								ctx.stroke();
+							}
+						}
+					}
+				}
+			}
+		
+				
+					
+		function render(){
+			var colours = ["blue","yellow","red","green"];
+			var c = document.getElementById("c");
+			var ctx = c.getContext("2d");
+			ctx.clearRect(0,0,2400,2400);	
+
+			drawHomes();
+			
+			ctx.translate(-375,-375);
+			
+			for(var po = 0; po<players.length; po++){
+				ctx.drawImage(document.getElementById("blue1"),players[po].x,players[po].y);
+			}
+			mapSprite();
+			for(var Q = 0; Q<titles_array.length; Q++){
+				ctx.strokeRect(titles_array[Q].x,titles_array[Q].y,50,50);
+				if(titles_array[Q].sprite == "blue" ){
+					if(titles_array[Q].amount == 1) var amount = 1;
+					if(titles_array[Q].amount == 2) var amount = 2;
+					if(titles_array[Q].amount == 3) var amount = 3;
+					if(titles_array[Q].amount == 4) var amount = 4;	
+						ctx.drawImage(document.getElementById(titles_array[Q].sprite+amount),titles_array[Q].x+5,titles_array[Q].y+5);
+					
+				}
+				
+			}
+			
+			for(var no = 0; no <blue_homes.length; no++){
+				if(blue_homes[no].sprite == "blue"){
+					ctx.drawImage(document.getElementById("blue1"),blue_homes[no].x,blue_homes[no].y);
+				}
+			}
+			//ctx.fillRect(350,500,50,50);
+			requestAnimationFrame(render);
+		}
+			
+		function mapSprite(){
+							
+			ctx.drawImage(document.getElementById("dice"),700,10);
+		}
+			
+		function Click(){
+			document.getElementById("c").addEventListener("click",function(e){
+				console.log(e);
+				if(e.pageX >700 && e.pageX <700+350 && e.pageY >10 && e.pageY <10+280){
+					DICE();
+				}
+			})
+		}
+
+		document.getElementById("c").addEventListener('selectstart',function(e){e.preventDefault(); return false;},false);
+		
+		var activePlayerColorIndex = 0;
+		function shiftTurn(){
+			activePlayerColorIndex = ++activePlayerColorIndex % 4;
+			
+		
+		
+		}
+		
+		
+		var RNGSUS ;
+		function DICE(){
+			//RNGSUS = Math.floor((Math.random() *6) +1);
+			RNGSUS = Math.floor((Math.random() * 6) + 1);
+			
+			if (RNGSUS == 6){
+				
+				alert("you rolled " + RNGSUS);
+				for(var i = 0; i<4; i++){
+					if(blue_homes[i].sprite == "blue"){
+						titles_array[activeRoute[0][0]].sprite = "blue";
+						for(var z = 0; z<players.length; z++){
+							if(players[z].colour == "blue" && players[z].position == "home"){
+								players[z].position = 0;
+								blue_homes[i].sprite = "";
+								titles_array[activeRoute[0][0]].amount++;
+								return;
+							}
+					
+						}
+						
+					}
+				}
+			}
+			
+			if (RNGSUS != 6){
+				alert("you rolled " + RNGSUS);
+				for (var y = 0; y < players.length; y++){
+					console.log("tset",players)
+					if(players[y].colour == "blue" && players[y].position != "home"){
+						titles_array[activeRoute[0][0][players[y].position]].sprite = "";
+						titles_array[activeRoute[0][0][players[y].position]].amount--;
+						players[y].position += RNGSUS ;
+						
+						
+						titles_array[activeRoute[0][0][players[y].position]].sprite = "blue";
+						titles_array[activeRoute[0][0][players[y].position]].amount++;
+						return;
+					}
+				}
+			}
+				
+			/*'updateBoard();*/		
+		}
+		
+		/*function updateBoard(){
+			var rng = RNGSUS;
+			if(rng == 6){
+				alert("you moved a brick");
+			}
+		}*/
+		
+		
+		render();
+		Click();
+		console.log(titles_array);
+			
+
+	})
+			
+</script>
+</head>
+
+	<body>
+    <canvas id="c" width="2400" height="2400";>
+	<img src="Blue_sprite1.png"  id="blue1"/>
+    <img src="Blue_sprite2.png"	id = "blue2" />
+    <img src="Blue_sprite3.png" id="blue3" />
+    <img src="Blue_sprite4.png" id="blue4"  />
+    <img src='globe_blue_lines2.png' id="globus" />
+    <img src="dice.png" id="dice" />
+    <img src="Yellow_sprite.png"  id="yellow"/>
+    <img src="Red_sprite.png" id="red" />
+    <img src="Green_sprite.png" id="green" />
+    <img src="globe_blue_lines2.png" id="globe" />
+	</body>
+</html>
